@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Little Surprise For Someone Special 💗</title>
+<meta name="theme-color" content="#f6c9e0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="games.css">
+</head>
+<body>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+<div id="hearts" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<main id="app">
+
+  <!-- ============ 1. SECRET LOCK ============ -->
+  <section id="screen-lock" class="screen" aria-labelledby="lock-title">
+    <div class="glass lock-card">
+      <h1 id="lock-title" class="script-title">A Little Surprise For Someone Special 💗</h1>
+      <p class="sub">Something magical is waiting for you...</p>
+
+      <div id="lock" class="lock" aria-hidden="true">
+        <span class="lock-glow"></span>
+        <svg viewBox="0 0 120 140" width="132" height="154" focusable="false">
+          <defs>
+            <linearGradient id="lockGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffc1dc"/>
+              <stop offset="1" stop-color="#c9a7f3"/>
+            </linearGradient>
+            <linearGradient id="shackleGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#f6e2a8"/>
+              <stop offset="1" stop-color="#e7b8d6"/>
+            </linearGradient>
+          </defs>
+          <g class="shackle">
+            <path d="M34 66 V44 a26 26 0 0 1 52 0 V66" fill="none" stroke="url(#shackleGrad)" stroke-width="11" stroke-linecap="round"/>
+          </g>
+          <rect x="16" y="60" width="88" height="68" rx="20" fill="url(#lockGrad)"/>
+          <rect x="16" y="60" width="88" height="68" rx="20" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+          <ellipse cx="38" cy="74" rx="12" ry="5" fill="#fff" opacity=".45"/>
+          <circle cx="60" cy="92" r="8" fill="#fff"/>
+          <rect x="57" y="94" width="6" height="17" rx="3" fill="#fff"/>
+        </svg>
+      </div>
+
+      <p class="lead">Before entering, solve this little birthday secret!</p>
+      <p class="question">What's the special date of your birthday? 🎂</p>
+
+      <form id="pin-form" autocomplete="off" novalidate>
+        <div class="pin-boxes" role="group" aria-label="Two digit PIN">
+          <input id="pin1" class="pin" type="text" inputmode="none" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="First digit" enterkeyhint="next">
+          <input id="pin2" class="pin" type="text" inputmode="none" pattern="[0-9]*" maxlength="1" autocomplete="off" aria-label="Second digit" enterkeyhint="go">
+        </div>
+        <div class="keypad" role="group" aria-label="Number keypad">
+          <button type="button" class="key" data-k="1" aria-label="1">1</button><button type="button" class="key" data-k="2" aria-label="2">2</button><button type="button" class="key" data-k="3" aria-label="3">3</button><button type="button" class="key" data-k="4" aria-label="4">4</button><button type="button" class="key" data-k="5" aria-label="5">5</button><button type="button" class="key" data-k="6" aria-label="6">6</button><button type="button" class="key" data-k="7" aria-label="7">7</button><button type="button" class="key" data-k="8" aria-label="8">8</button><button type="button" class="key" data-k="9" aria-label="9">9</button>
+          <button type="button" class="key key-del" data-k="del" aria-label="Delete">⌫</button>
+          <button type="button" class="key" data-k="0" aria-label="0">0</button>
+          <span class="key-gap" aria-hidden="true"></span>
+        </div>
+        <button type="submit" class="btn">ENTER 💗</button>
+        <p id="pin-msg" class="pin-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ 2. BALLOONS ============ -->
+  <section id="screen-balloons" class="screen" aria-labelledby="balloon-title" hidden>
+    <h2 id="balloon-title" class="script-title">Yayyy! You made it! 💗</h2>
+    <p class="sub">But wait... your birthday surprise isn't ready yet!</p>
+    <p class="lead">Pop all 10 balloons to unlock your special surprise! 🎈</p>
+
+    <div id="balloon-field" class="balloon-field" role="group" aria-label="Ten balloons to pop"></div>
+
+    <div class="glass counter-card">
+      <p id="balloon-count" class="counter" aria-live="polite">0 / 10 balloons popped</p>
+      <div id="balloon-dots" class="dots" aria-hidden="true"></div>
+    </div>
+
+    <div id="balloon-done" class="done" hidden>
+      <h3 class="script-title small">You did it, Mahi! 🥳</h3>
+      <button id="btn-unlock" type="button" class="btn glow">UNLOCK MY BIRTHDAY SURPRISE 💝</button>
+    </div>
+  </section>
+
+  <!-- ============ 3. CELEBRATION ============ -->
+  <section id="screen-party" class="screen party" aria-label="Birthday celebration" hidden>
+
+    <header class="hero">
+      <p class="eyebrow">✦ made with love, just for you ✦</p>
+      <h2 class="hero-title" aria-label="Happy Birthday, Mahi!">
+        <span>Happy</span> <span>Birthday,</span> <span>Mahi!</span> <span aria-hidden="true">🎀</span>
+      </h2>
+      <p class="hero-date">10 November — Your Special Day</p>
+      <div id="countdown" class="countdown" aria-live="off"></div>
+      <a class="scroll-cue" href="#cake" aria-label="Scroll down to the cake">↓</a>
+    </header>
+
+    <!-- Cake -->
+    <section id="cake" class="block cake-section reveal" aria-labelledby="cake-title">
+      <h3 id="cake-title" class="sr-only">Your birthday cake</h3>
+      <div id="cake-wrap" class="cake-wrap">
+        <div class="cake-aura" aria-hidden="true"></div>
+        <div id="cake-sparkles" class="cake-sparkles" aria-hidden="true"></div>
+        <svg id="cake-svg" class="cake-svg" viewBox="0 0 320 320" role="img" aria-label="A pink and cream birthday cake with ten candles"></svg>
+      </div>
+      <button id="btn-wish" type="button" class="btn glow">Make a Wish &amp; Blow the Candles 🕯️</button>
+      <p id="wish-msg" class="wish-msg" role="status" aria-live="polite" hidden>May every little wish of yours come true! 💗</p>
+    </section>
+
+    <!-- Heartfelt message -->
+    <section class="block reveal" aria-labelledby="letter-title">
+      <article class="letter">
+        <span class="letter-deco d1" aria-hidden="true">🌸</span>
+        <span class="letter-deco d2" aria-hidden="true">🌷</span>
+        <span class="letter-deco d3" aria-hidden="true">✨</span>
+        <h3 id="letter-title" class="letter-hello">Dear Mahi, 💗</h3>
+        <p class="p-in" style="--i:0">Aaj ka din tumhara hai, toh bas yahi wish karta hU ki tumhara har din aaj jitna hi special ho.</p>
+        <p class="p-in" style="--i:1">Tum hamesha khush raho, haste raho aur tumhari life mein kabhi khushiyo ki kami na ho. Tumhare jitne bhi dreams hai, woh sab ek din purre ho. Life mai chahe kuch bhi ho, bas apni smile kabhi mat khona and kabhi galat raste pr maat bhatak jana.</p>
+        <p class="p-in" style="--i:2">I hope tumhara yeh naya year tumhare liye bahut saari khushiya, beautiful memories aur unexpected surprises lekar aaye.</p>
+        <p class="p-in" style="--i:3">Bas hamesha ese i hi rehna, khush, sweet aur apni tarah special. ❤️</p>
+        <p class="p-in letter-strong" style="--i:4">Once again, Happiest Birthday Mahi! 🎂✨</p>
+        <p class="p-in" style="--i:5">Enjoy your day to the fullest! 💗</p>
+        <p class="p-in letter-sign" style="--i:6">With lots of love and warm wishes. 💕</p>
+      </article>
+    </section>
+
+    <!-- Envelope + card -->
+    <section class="block reveal" aria-labelledby="card-title">
+      <h3 id="card-title" class="section-title">A little card, just for you 💝</h3>
+      <div id="envelope-stage" class="envelope-stage">
+        <div id="envelope" class="envelope">
+          <div class="env-back"></div>
+          <div id="env-card" class="env-card" aria-live="polite">
+            <div class="card-inner">
+              <h4 class="card-title">To The Birthday Girl 🌷</h4>
+              <p>Some people make the world a little more beautiful just by being themselves. Today, I hope the world gives you back all the happiness you bring into it.</p>
+              <p>Keep shining, Mahi. You deserve all the beautiful things life has to offer.</p>
+              <p class="card-sign">Happy Birthday Once Again! 💗</p>
+            </div>
+          </div>
+          <div class="env-front"></div>
+          <div class="env-flap"></div>
+          <button id="env-seal" type="button" class="env-seal" aria-label="Open the envelope"><span aria-hidden="true">♥</span></button>
+          <span class="env-deco e1" aria-hidden="true">🌸</span>
+          <span class="env-deco e2" aria-hidden="true">🌷</span>
+          <span class="env-deco e3" aria-hidden="true">✨</span>
+          <span class="env-deco e4" aria-hidden="true">🌼</span>
+        </div>
+      </div>
+      <button id="card-toggle" type="button" class="btn btn-soft" aria-expanded="false" aria-controls="env-card">Open the card 💌</button>
+    </section>
+
+    <!-- Little things -->
+    <section class="block reveal" aria-labelledby="things-title">
+      <h3 id="things-title" class="section-title">💗 Little Things That Make You Special</h3>
+      <div class="things">
+        <article class="thing glass" style="--i:0"><span class="thing-ico" aria-hidden="true">🌸</span><h4>Your Way of Talking</h4><p>I don't know how you do it, but even random conversations with you can be fun.</p></article>
+        <article class="thing glass" style="--i:1"><span class="thing-ico" aria-hidden="true">✨</span><h4>Your Nature</h4><p>You have a nice way of talking that makes you easy to get along with.</p></article>
+        <article class="thing glass" style="--i:2"><span class="thing-ico" aria-hidden="true">🌷</span><h4>Your Personality</h4><p>There's something unique about the way you are, and that's what makes you interesting.</p></article>
+        <article class="thing glass" style="--i:3"><span class="thing-ico" aria-hidden="true">🎀</span><h4>Your Funny Side</h4><p>Those random jokes and silly conversations are honestly some of the best parts of chatting with you.</p></article>
+        <article class="thing glass" style="--i:4"><span class="thing-ico" aria-hidden="true">🦋</span><h4>Your Dreams</h4><p>I hope all the things you're wishing and working for someday become reality.</p></article>
+        <article class="thing glass" style="--i:5"><span class="thing-ico" aria-hidden="true">💖</span><h4>The Little Things</h4><p>It's the small conversations, random moments and little things about you that make our friendship special.</p></article>
+      </div>
+    </section>
+
+    <!-- Surprise -->
+    <section class="block reveal center" aria-label="One more surprise">
+      <button id="btn-surprise" type="button" class="btn glow">One More Surprise? 🎁</button>
+    </section>
+
+    <!-- Little games (optional) -->
+    <section id="games" class="block games" aria-labelledby="games-title">
+      <div class="gm-head reveal">
+        <h3 id="games-title" class="section-title">A Few Little Games 🎮</h3>
+        <p class="gm-sub">Just for fun — play whenever you like!</p>
+      </div>
+
+      <!-- Game 1: Catch the Hearts -->
+      <article id="game-hearts" class="gm-card glass reveal" aria-labelledby="gh-title">
+        <h4 id="gh-title" class="gm-title">Catch the Hearts 💕</h4>
+        <p class="gm-how">Drag (or use the ← → keys) to move the basket. Catch 20 hearts in 30 seconds!</p>
+        <div class="gm-hud">
+          <span class="gm-pill">Hearts <b id="gh-score">0</b> / 20</span>
+          <span class="gm-pill">Time <b id="gh-time">30</b>s</span>
+        </div>
+        <div id="gh-field" class="gh-field" tabindex="0" role="application" aria-label="Catch the hearts play area. Drag, or use the left and right arrow keys, to move the basket.">
+          <div id="gh-hearts" class="gh-layer" aria-hidden="true"></div>
+          <div id="gh-basket" class="gh-basket" aria-hidden="true">
+            <svg viewBox="0 0 100 72" focusable="false">
+              <defs><linearGradient id="ghBask" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8d3a8"/><stop offset="1" stop-color="#e1a470"/></linearGradient></defs>
+              <ellipse cx="50" cy="16" rx="43" ry="10" fill="#d99863"/>
+              <ellipse cx="50" cy="16" rx="37" ry="6.5" fill="#b97a4a"/>
+              <path d="M9 18 Q13 66 30 69 H70 Q87 66 91 18 Q50 32 9 18Z" fill="url(#ghBask)" stroke="#d99863" stroke-width="1.5"/>
+              <path d="M16 30 Q50 40 84 30 M19 42 Q50 52 81 42 M24 54 Q50 62 76 54" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="2"/>
+              <path d="M36 24 L40 66 M50 28 L50 68 M64 24 L60 66" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="1.6"/>
+              <g transform="translate(50 42)"><ellipse cx="-9" cy="0" rx="9" ry="5.5" fill="#ff9ec4" transform="rotate(-18 -9 0)"/><ellipse cx="9" cy="0" rx="9" ry="5.5" fill="#ff9ec4" transform="rotate(18 9 0)"/><circle r="4" fill="#f06fa0"/></g>
+            </svg>
+          </div>
+          <div id="gh-overlay" class="gh-overlay">
+            <h5 id="gh-ov-title" class="gh-ov-title">Ready, Mahi? 💕</h5>
+            <p id="gh-ov-text" class="gh-ov-text">Catch 20 hearts before the 30 seconds run out.</p>
+            <button id="gh-start" type="button" class="btn glow">Start Game 💕</button>
+          </div>
+        </div>
+        <p id="gh-status" class="sr-only" role="status" aria-live="polite"></p>
+      </article>
+
+      <!-- Game 2: Mystery Gift Boxes -->
+      <article id="game-gifts" class="gm-card glass reveal" aria-labelledby="gg-title">
+        <h4 id="gg-title" class="gm-title">Mystery Gift Boxes 🎁</h4>
+        <p class="gm-how">Tap a box to open it — each one hides a little surprise.</p>
+        <div id="gift-row" class="gift-row"></div>
+        <div id="gift-reveal" class="gift-reveal" role="status" aria-live="polite"><p class="gift-hint">Pick a box to open ✨</p></div>
+        <p id="gift-count" class="gm-count">0 / 5 gifts opened</p>
+      </article>
+
+      <!-- Game 3: Decorate Your Birthday Cake -->
+      <article id="game-cake" class="gm-card glass dc-card reveal" aria-labelledby="dc-title">
+        <h4 id="dc-title" class="gm-title">Decorate Your Birthday Cake 🎂</h4>
+        <p class="gm-how">Choose your favourites — the cake updates as you go.</p>
+        <div id="dc-stage" class="dc-stage"><svg id="dc-svg" viewBox="0 0 320 320" role="img" aria-label="Your decorated cake"></svg></div>
+        <div id="dc-controls" class="dc-controls">
+          <div id="dc-groups"></div>
+          <button id="dc-finish" type="button" class="btn glow">Finish my cake 🎂</button>
+        </div>
+        <div id="dc-done" class="dc-done" hidden>
+          <p class="dc-congrats">Congratulations, Mahi! 🎉</p>
+          <p class="dc-note">You've designed a birthday cake that's every bit as sweet and special as you are. Happy Birthday! 💗</p>
+          <button id="dc-edit" type="button" class="btn btn-soft">Decorate again 🎨</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- Final wish -->
+    <section class="block reveal final-wrap" aria-labelledby="final-title">
+      <div class="night">
+        <div id="night-stars" class="night-stars" aria-hidden="true"></div>
+        <h3 id="final-title" class="final-title">Once Again, Happiest Birthday, Mahi! 🎂</h3>
+        <p class="final-text">May your smile always shine brighter than all the stars in the sky. 💖</p>
+      </div>
+    </section>
+
+  </section>
+</main>
+
+<!-- Surprise popup -->
+<div id="surprise-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="surprise-title" hidden>
+  <div class="modal-card">
+    <div class="modal-ico" aria-hidden="true">🎁</div>
+    <h3 id="surprise-title" class="sr-only">A little surprise</h3>
+    <p class="modal-text">Just a little reminder that you deserve all the happiness, love and beautiful moments in this world. Never stop smiling! 💗</p>
+    <button id="surprise-close" type="button" class="btn">Aww, thank you 🥹</button>
+  </div>
+</div>
+
+<!-- Music control -->
+<div id="music" class="music" role="group" aria-label="Music controls">
+  <button id="music-toggle" type="button" class="music-btn" aria-label="Play music" aria-pressed="false">
+    <svg class="i-note" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M9 18V6l10-2v12"/><circle cx="7" cy="18" r="3" fill="currentColor"/><circle cx="17" cy="16" r="3" fill="currentColor"/></svg>
+    <svg class="i-pause" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.5" fill="currentColor"/></svg>
+  </button>
+  <button id="music-mute" type="button" class="music-btn" aria-label="Mute" aria-pressed="false">
+    <svg class="i-vol" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <svg class="i-mute" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<script src="app.js"></script>
+<script src="games.js"></script>
+</body>
+</html>
